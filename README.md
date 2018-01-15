@@ -5,18 +5,81 @@ Facilitated by the fast spreading and developing of internet and smart devices, 
 
 In this project I am using online news popularity data set containing 39644 news articles and 57 features about each article including statistical features like number of words in title, rate of non-stop words in the content, article publish weekdays etc. and NLP features like positive word rate, title subjectivity level etc. The goal is to classify whether these articles are popular or not quantified by article shares. 
 
-## Motivation:
-The main motivation of this project is not aiming at developing a new method or fine tunning a state of art model to achieve extreme high accuracy. The focus here is to set up a systematic procedure and framework to understand the dataset and compare different models on this dataset.
 
-0_Preprocessing.ipynb:
-- By investigating mean, std, range, unique value counts and outlier counts, we are able to merge related features, remove outliers and standardize the dataset for future model fitting.
-- By decompositing data set using differnt method like PCA, sparse PCA, factor analysis and NMF, we are able to look at the dataset from more perspectives and possibly improve the model performance.
+## Synopsis:
+The main motivation of this project is setting up a systematic framework to:
 
-1_Model fitting and selection.ipynb:
-- By setting up performance evaluation, expected loss, as sum of square bias and variance, We are able to find the balance between model's flexibility and steadiness.
-- By visulizing the results of parameter tunning, we can understand how each of the parameters changed the model's behavior on this dataset.
-- By comparing the decision boundaries of model before and after parameter tunning, we are able to tell how does model adapt to this dataset and identify possible problems and improvements.
-- By plotting the histogram of prediction confidence, we are able to understand better how predictions are made by different models, and discard problematic ones which looks fine if we just judge by expected loss.
+    1. Understand the dataset including noises and possible hidden features can be extracted. 
+    2. Visualize the behaviors of different learning models and observe how they interact with this dataset.
+    3. Compare the behavior and performance of those learning models.
+
+To limit the size of Jupyter notebooks, I split this project into 2 parts: preprocessing and model fitting selection.
+
+- **Preprocessing**
+
+    1. Explore the statistical figures like mean, std, range, unique value/outlier counts and feature data types of dataset.
+    
+    2. Clean the dataset by merging related binary features, standard scale features, remove outliers etc.
+    ![](imgs/feature_scales.png)
+
+    3. Using matrix decomposition methods to reduce dimensionality and  generate possibly more predictive feature spaces.
+    
+        1. original
+        2. PCA
+        3. sparsePCA
+        4. FactorAnalysis
+        5. NMF
+    
+    ![](imgs/scatter_plot.png)
+
+- **Model fitting and selection**
+
+    1. Fit different learning models on the cleaned dataset under different feature space and test different hyper-parameter combinations using grid searching. 
+    
+        1. Naive Bayes
+        2. Logistic Regression
+        3. SVM
+        4. k-Nearest Neighbours
+        5. Random Forest
+        6. XGBoost
+
+    2. Visualize the results of parameter tunning to observe how each of the parameters changed the model's behavior on this dataset.
+    ![](imgs/parallel_coordinates.png)
+
+    3. Visualize the decision boundaries to tell how classifiers adapt themselves on this dataset and identify possible problems.
+    ![](imgs/decision_boundaries.png)
+
+    4. Evaluate and compare the performance of classifiers under different spaces using expected loss which considers both model flexibility and steadiness.
+    ![](imgs/performance_compares.png)
+
+    5. Compare the prediction "confidence" of classifiers by plotting the confusion histogram. This allows us further examine the behavior of classifiers and identify possible problems.
+    ![](imgs/title_image.png)
+
+
+## Files:
+- **0_Preprocessing.ipynb**:   
+    This Jupyter notebook contains code preprocesses the original dataset.
+
+- **1_Model fitting and selection.ipynb**:   
+    This Jupyter notebook contains code fits different learning models on cleaned dataset and compares the learning results.
+
+- **modules/LearningPipe.py**:  
+    This python code implements a wrapper class based on several sklearn models to perform feature selection, grid searching, cross validation and evaluation jobs. It also provides methods to visualize parameter tuning and decision boundaries. 
+
+- **modules/Visual.py**:  
+    This python code implements visualization class for basic plotting jobs. Both python files are imported as modules in the Jupyter notebooks.
+
+
+## Dependencies:
+Running the notebook requires following Python libraries installed:
+
+    - sklearn  
+    - numpy  
+    - pandas  
+    - xgboost  
+    - matplotlib  
+    - seaborn  
+
 
 ## API References:
 - scikit-learn: Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau, Matthieu Brucher, Matthieu Perrot, Édouard Duchesnay. Scikit-learn: Machine Learning in Python, Journal of Machine Learning Research, 12, 2825-2830 (2011)
@@ -50,8 +113,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Contact:
-Xian Lai
-Data Analytics, CIS @ Fordham University
-XianLaaai@gmail.com
+Xian Lai    
+Data Analytics, CIS @ Fordham University    
+XianLaaai@gmail.com     
 
 
